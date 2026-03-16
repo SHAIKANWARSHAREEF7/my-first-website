@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyByte Food Delivery - Order Food Online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0F172A;
+            --blue: #1E40AF;
+            --red: #DC2626;
+            --white: #FFFFFF;
+            --light-bg: #F8FAFC;
+            --gray: #64748B;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light-bg);
+            color: var(--black);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            padding: 14px 0;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--black);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            font-size: 28px;
+        }
+
+        .logo span {
+            color: var(--red);
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 40px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            border: 2px solid #E2E8F0;
+            border-radius: 50px;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+            background: var(--light-bg);
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--blue);
+            background: var(--white);
+        }
+
+        .search-bar::before {
+            content: '🔍';
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cart-btn {
+            position: relative;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .cart-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--red);
+            color: var(--white);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--blue), var(--red));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--black);
+        }
+
+        .logout-btn {
+            padding: 8px 16px;
+            background: transparent;
+            border: 2px solid var(--red);
+            border-radius: 8px;
+            color: var(--red);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .logout-btn:hover {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        /* Main Content */
+        main {
+            padding-top: 80px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--black) 0%, var(--blue) 100%);
+            padding: 60px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .hero h1 span {
+            color: var(--red);
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 24px;
+        }
+
+        /* Categories */
+        .categories {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .category-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--black);
+        }
+
+        .category-grid {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .category-item {
+            flex-shrink: 0;
+            padding: 12px 24px;
+            background: var(--white);
+            border: 2px solid #E2E8F0;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .category-item:hover,
+        .category-item.active {
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
+        }
+
+        /* Restaurants Section */
+        .restaurants {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--black);
+        }
+
+        .view-all {
+            color: var(--blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .view-all:hover {
+            text-decoration: underline;
+        }
+
+        .restaurant-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .restaurant-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .restaurant-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .restaurant-image {
+            height: 180px;
+            background: linear-gradient(135deg, #E2E8F0, #CBD5E1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            position: relative;
+        }
+
+        .restaurant-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--red);
+            color: var(--white);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .restaurant-info {
+            padding: 20px;
+        }
+
+        .restaurant-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 8px;
+        }
+
+        .restaurant-cuisine {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 12px;
+        }
+
+        .restaurant-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .restaurant-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .rating-star {
+            color: #F59E0B;
+        }
+
+        .restaurant-time {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        .restaurant-delivery {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        .restaurant-delivery.free {
+            color: #059669;
+            font-weight: 600;
+        }
+
+        /* Floating Cart Button */
+        .floating-cart {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--red);
+            color: var(--white);
+            padding: 16px 24px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 30px rgba(220, 38, 38, 0.4);
+            cursor: pointer;
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+
+        .floating-cart:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 40px rgba(220, 38, 38, 0.5);
+        }
+
+        .floating-cart-icon {
+            font-size: 24px;
+        }
+
+        .floating-cart-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .floating-cart-count {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .floating-cart-total {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            right: 24px;
+            background: var(--black);
+            color: var(--white);
+            padding: 16px 24px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateX(calc(100% + 24px));
+            transition: transform 0.3s ease;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast-icon {
+            font-size: 24px;
+        }
+
+        /* Login Required Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1999;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-container {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .modal-container h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: var(--black);
+        }
+
+        .modal-container p {
+            color: var(--gray);
+            margin-bottom: 24px;
+        }
+
+        .modal-btn {
+            padding: 14px 32px;
+            background: var(--red);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .modal-btn:hover {
+            background: #B91C1C;
+        }
+
+        .modal-btn-secondary {
+            background: transparent;
+            color: var(--gray);
+            border: 2px solid #E2E8F0;
+            margin-left: 12px;
+        }
+
+        .modal-btn-secondary:hover {
+            background: var(--light-bg);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-wrap: wrap;
+            }
+
+            .search-bar {
+                order: 3;
+                max-width: 100%;
+                margin: 12px 0 0;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .restaurant-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .user-name {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="index-skybyte.html" class="logo">
+                <span class="logo-icon">🚀</span>
+                Sky<span>Byte</span>
+            </a>
+
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search restaurants, cuisines...">
+            </div>
+
+            <div class="header-actions">
+                <button class="cart-btn" onclick="goToCart()">
+                    🛒
+                    <span class="cart-count" id="headerCartCount">0</span>
+                </button>
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">D</div>
+                    <span class="user-name" id="userName">Demo User</span>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Welcome to <span>SkyByte</span></h1>
+                <p>Order from your favorite restaurants and get lightning-fast delivery to your doorstep!</p>
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <section class="categories">
+            <h2 class="category-title">Popular Cuisines</h2>
+            <div class="category-grid">
+                <div class="category-item active" data-category="all">All</div>
+                <div class="category-item" data-category="pizza">🍕 Pizza</div>
+                <div class="category-item" data-category="burger">🍔 Burgers</div>
+                <div class="category-item" data-category="chinese">🥡 Chinese</div>
+                <div class="category-item" data-category="indian">🍛 Indian</div>
+                <div class="category-item" data-category="mexican">🌮 Mexican</div>
+                <div class="category-item" data-category="sushi">🍣 Sushi</div>
+                <div class="category-item" data-category="fastfood">🍟 Fast Food</div>
+            </div>
+        </section>
+
+        <!-- Restaurants -->
+        <section class="restaurants">
+            <div class="section-header">
+                <h2 class="section-title">Popular Restaurants</h2>
+                <a href="#" class="view-all">View All →</a>
+            </div>
+
+            <div class="restaurant-grid" id="restaurantGrid">
+                <!-- Restaurants will be rendered here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Cart Button -->
+    <div class="floating-cart" id="floatingCart" onclick="goToCart()">
+        <span class="floating-cart-icon">🛒</span>
+        <div class="floating-cart-info">
+            <span class="floating-cart-count" id="floatingCartCount">0 items</span>
+            <span class="floating-cart-total" id="floatingCartTotal">$0.00</span>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <span class="toast-icon">✅</span>
+        <span class="toast-message" id="toastMessage">Item added to cart</span>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-container">
+            <h2>Login Required</h2>
+            <p>Please login to continue ordering food</p>
+            <button class="modal-btn" onclick="redirectToLogin()">Login</button>
+        </div>
+    </div>
+
+    <script>
+        // Restaurant Data
+        const restaurants = [
+            {
+                id: 1,
+                name: "Pizza Palace",
+                cuisine: "Pizza, Italian",
+                rating: 4.8,
+                time: "25-35 min",
+                delivery: "Free",
+                image: "🍕",
+                badge: "Popular",
+                category: "pizza"
+            },
+            {
+                id: 2,
+                name: "Burger Barn",
+                cuisine: "Burgers, Fast Food",
+                rating: 4.6,
+                time: "20-30 min",
+                delivery: "Free",
+                image: "🍔",
+                badge: null,
+                category: "burger"
+            },
+            {
+                id: 3,
+                name: "Golden Dragon",
+                cuisine: "Chinese, Asian",
+                rating: 4.7,
+                time: "30-40 min",
+                delivery: "$1.99",
+                image: "🥡",
+                badge: "Top Rated",
+                category: "chinese"
+            },
+            {
+                id: 4,
+                name: "Spice Garden",
+                cuisine: "Indian, Biryani",
+                rating: 4.9,
+                time: "35-45 min",
+                delivery: "Free",
+                image: "🍛",
+                badge: "Best Seller",
+                category: "indian"
+            },
+            {
+                id: 5,
+                name: "Taco Fiesta",
+                cuisine: "Mexican, Tacos",
+                rating: 4.5,
+                time: "25-35 min",
+                delivery: "$0.99",
+                image: "🌮",
+                badge: null,
+                category: "mexican"
+            },
+            {
+                id: 6,
+                name: "Tokyo Sushi",
+                cuisine: "Sushi, Japanese",
+                rating: 4.8,
+                time: "30-40 min",
+                delivery: "Free",
+                image: "🍣",
+                badge: "Premium",
+                category: "sushi"
+            },
+            {
+                id: 7,
+                name: "Wendy's World",
+                cuisine: "Burgers, Fries",
+                rating: 4.4,
+                time: "15-25 min",
+                delivery: "$0.99",
+                image: "🍟",
+                badge: null,
+                category: "fastfood"
+            },
+            {
+                id: 8,
+                name: "Curry House",
+                cuisine: "Indian, North Indian",
+                rating: 4.7,
+                time: "35-45 min",
+                delivery: "Free",
+                image: "🥘",
+                badge: "Popular",
+                category: "indian"
+            },
+            {
+                id: 9,
+                name: "KFC Kingdom",
+                cuisine: "Fried Chicken, Fast Food",
+                rating: 4.6,
+                time: "20-30 min",
+                delivery: "Free",
+                image: "🍗",
+                badge: null,
+                category: "fastfood"
+            },
+            {
+                id: 10,
+                name: "Domino's Pizza",
+                cuisine: "Pizza, Pasta",
+                rating: 4.5,
+                time: "25-35 min",
+                delivery: "$1.99",
+                image: "🍕",
+                badge: null,
+                category: "pizza"
+            },
+            {
+                id: 11,
+                name: "McDonald's",
+                cuisine: "Burgers, Fast Food",
+                rating: 4.3,
+                time: "15-25 min",
+                delivery: "$0.99",
+                image: "🍔",
+                badge: null,
+                category: "fastfood"
+            },
+            {
+                id: 12,
+                name: "Subway",
+                cuisine: "Sandwiches, Salads",
+                rating: 4.4,
+                time: "20-30 min",
+                delivery: "Free",
+                image: "🥪",
+                badge: null,
+                category: "fastfood"
+            },
+            {
+                id: 13,
+                name: "Biryani House",
+                cuisine: "Biryani, Hyderabadi",
+                rating: 4.8,
+                time: "30-40 min",
+                delivery: "Free",
+                image: "🍚",
+                badge: "Top Rated",
+                category: "indian"
+            },
+            {
+                id: 14,
+                name: "Noodle Bar",
+                cuisine: "Chinese, Noodles",
+                rating: 4.6,
+                time: "25-35 min",
+                delivery: "$1.49",
+                image: "🍜",
+                badge: null,
+                category: "chinese"
+            },
+            {
+                id: 15,
+                name: "Tandoor Palace",
+                cuisine: "Tandoor, Kebabs",
+                rating: 4.7,
+                time: "35-45 min",
+                delivery: "Free",
+                image: "🥙",
+                badge: null,
+                category: "indian"
+            },
+            {
+                id: 16,
+                name: "Dunkin' Donuts",
+                cuisine: "Donuts, Coffee",
+                rating: 4.5,
+                time: "20-30 min",
+                delivery: "$1.99",
+                image: "🍩",
+                badge: null,
+                category: "fastfood"
+            }
+        ];
+
+        // Cart Data
+        let cart = JSON.parse(localStorage.getItem('skybyte_cart')) || [];
+
+        // Check if user is logged in
+        function checkAuth() {
+            const user = JSON.parse(localStorage.getItem('skybyte_user'));
+            if (!user) {
+                window.location.href = 'login-skybyte.html';
+                return false;
+            }
+            
+            // Update UI with user info
+            document.getElementById('userName').textContent = user.name || 'User';
+            document.getElementById('userAvatar').textContent = (user.name || 'U').charAt(0).toUpperCase();
+            return true;
+        }
+
+        // Render restaurants
+        function renderRestaurants(filter = 'all') {
+            const grid = document.getElementById('restaurantGrid');
+            const filtered = filter === 'all' 
+                ? restaurants 
+                : restaurants.filter(r => r.category === filter);
+
+            grid.innerHTML = filtered.map(restaurant => `
+                <div class="restaurant-card" onclick="goToRestaurant(${restaurant.id})">
+                    <div class="restaurant-image">
+                        ${restaurant.image}
+                        ${restaurant.badge ? `<span class="restaurant-badge">${restaurant.badge}</span>` : ''}
+                    </div>
+                    <div class="restaurant-info">
+                        <h3 class="restaurant-name">${restaurant.name}</h3>
+                        <p class="restaurant-cuisine">${restaurant.cuisine}</p>
+                        <div class="restaurant-meta">
+                            <span class="restaurant-rating">
+                                <span class="rating-star">★</span> ${restaurant.rating}
+                            </span>
+                            <span class="restaurant-time">🕐 ${restaurant.time}</span>
+                            <span class="restaurant-delivery ${restaurant.delivery === 'Free' ? 'free' : ''}">
+                                🚚 ${restaurant.delivery}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Category filter
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.category-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                renderRestaurants(this.dataset.category);
+            });
+        });
+
+        // Go to restaurant detail page
+        function goToRestaurant(id) {
+            localStorage.setItem('skybyte_selected_restaurant', id);
+            window.location.href = 'restaurant-skybyte.html';
+        }
+
+        // Go to cart
+        function goToCart() {
+            window.location.href = 'cart-skybyte.html';
+        }
+
+        // Update cart UI
+        function updateCartUI() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            document.getElementById('headerCartCount').textContent = totalItems;
+            document.getElementById('floatingCartCount').textContent = `${totalItems} item${totalItems !== 1 ? 's' : ''}`;
+            document.getElementById('floatingCartTotal').textContent = `$${totalPrice.toFixed(2)}`;
+
+            // Show/hide floating cart
+            document.getElementById('floatingCart').style.display = totalItems > 0 ? 'flex' : 'none';
+        }
+
+        // Logout
+        function logout() {
+            localStorage.removeItem('skybyte_user');
+            localStorage.removeItem('skybyte_cart');
+            window.location.href = 'login-skybyte.html';
+        }
+
+        // Initialize
+        if (checkAuth()) {
+            renderRestaurants();
+            updateCartUI();
+        }
+    </script>
+</body>
+</html>
